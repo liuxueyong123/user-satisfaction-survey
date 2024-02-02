@@ -1,7 +1,37 @@
 {
-  "name": "vite-project",
-  "private": true,
-  "version": "0.0.0",
+  "main": "dist/index.cjs.js",
+  "module": "dist/index.es.js",
+  "types": "dist/types/index.d.ts",
+  "exports": {
+    "./package.json": "./package.json",
+    ".": {
+      "types": "./dist/types/index.d.ts",
+      "import": "./dist/index.es.js",
+      "default": "./dist/index.cjs.js"
+    }
+  },
+  "name": "user-satisfaction-survey",
+  "displayName": "User Satisfaction Survey",
+  "description": "基于 lit 实现的跨框架通用用户满意度调查组件，方便快速集成用户满意度调查功能",
+  "version": "0.0.1",
+  "publisher": "liuxueyong123",
+  "author": {
+    "name": "liuxueyong123",
+    "email": "liuxueyong123@126.com",
+    "url": "https://github.com/liuxueyong123"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/liuxueyong123/user-satisfaction-survey.git"
+  },
+  "bugs": "https://github.com/liuxueyong123/user-satisfaction-survey/issues/new",
+  "homepage": "https://github.com/liuxueyong123/user-satisfaction-survey",
+  "keywords": [
+    "User Satisfaction Survey",
+    "User Satisfaction",
+    "Survey",
+    "用户满意度调查"
+  ],
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -12,7 +42,14 @@
     "lit": "^3.1.0"
   },
   "devDependencies": {
-    "typescript": "^5.2.2",
-    "vite": "^5.0.8"
+    "@typescript-eslint/eslint-plugin": "^6.4.0",
+    "eslint": "^8.56.0",
+    "eslint-config-standard-with-typescript": "^43.0.1",
+    "eslint-plugin-import": "^2.25.2",
+    "eslint-plugin-n": "^15.0.0 || ^16.0.0 ",
+    "eslint-plugin-promise": "^6.0.0",
+    "typescript": "^5.3.3",
+    "vite": "^5.0.8",
+    "vite-plugin-dts": "^3.7.2"
   }
 }

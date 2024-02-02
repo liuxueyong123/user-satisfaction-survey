@@ -1,4 +1,4 @@
-import { UserSatisfactionElement, UserSatisfactionSurvey } from './modules/UserSatisfactionSurvey';
+import { UserSatisfactionElement, UserSatisfactionSurvey } from './modules/UserSatisfactionSurvey'
 
 declare global {
   interface HTMLElementTagNameMap {

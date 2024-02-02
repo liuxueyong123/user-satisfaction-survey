@@ -5,15 +5,118 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>UserSatisfactionSurvey</title>
-    <script type="module">
-      import { UserSatisfactionSurvey } from '/src/index.ts';
-      const userSatisfactionInstance = new UserSatisfactionSurvey();
-      setTimeout(() => {
-        userSatisfactionInstance.launch();
-      }, 2000);
-    </script>
   </head>
   <body>
     <h1>UserSatisfactionSurvey</h1>
+    <p>
+      <button id="button1">展示问卷</button>
+      <button id="button2">关闭问卷</button>
+      <button id="button10">销毁问卷</button>
+      <button id="button11">重新初始化问卷</button>
+    </p>
+    <p>
+      <button id="button3">删除id为1的问题</button>
+      <button id="button4">删除id为2的问题</button>
+      <button id="button5">删除id为3的问题</button>
+      <button id="button6">删除id为4的问题</button>
+      <button id="button7">删除id为5的问题</button>
+      <button id="button8">删除id为6的问题</button>
+    </p>
+    <p>
+      <button id="button9">增加问题</button>
+    </p>
+    <script type="module">
+      import { UserSatisfactionSurvey } from '/src/index.ts';
+      let userSatisfactionInstance = null;
+
+      const init = () => {
+        userSatisfactionInstance = new UserSatisfactionSurvey([
+          {
+            id: 1,
+            content: "我们的控制台操作方便，您能够快速找到关注的信息？"
+          },
+          {
+            id: 2,
+            content: "通过查阅文档，您能够轻松快速的解决集成中的问题？"
+          },
+          {
+            id: 3,
+            content: "我们的音视频质量很好，能够满足您的需求？"
+          },
+          {
+            id: 4,
+            content: "我们的 SDK 设计的很简单，您能够轻松快速的完成集成？"
+          },
+          {
+            id: 5,
+            content: "我们的 Demo 丰富 代码质量也很好，能够帮助您缩短集成时间？"
+          },
+          {
+            id: 6,
+            content: "我们的技术支持，能够快速高效地帮助您解决问题？"
+          },
+        ]);
+        userSatisfactionInstance.on('questionCompleted', (res) => {
+          console.log('questionCompleted', res)
+        })
+        userSatisfactionInstance.on('completed', (res) => {
+          console.log('completed', res)
+        })
+      }
+
+      window.onload = function () {
+        init();
+
+        const button1 = document.getElementById('button1');
+        button1.addEventListener('click', function () {
+          userSatisfactionInstance.launch();
+        });
+        const button2 = document.getElementById('button2');
+        button2.addEventListener('click', function () {
+          userSatisfactionInstance.close();
+        });
+        const button10 = document.getElementById('button10');
+        button10.addEventListener('click', function () {
+          userSatisfactionInstance.destroy();
+        });
+        const button11 = document.getElementById('button11');
+        button11.addEventListener('click', function () {
+          init();
+        });
+
+        const button3 = document.getElementById('button3');
+        button3.addEventListener('click', function () {
+          userSatisfactionInstance.removeQuestionById(1)
+        });
+        const button4 = document.getElementById('button4');
+        button4.addEventListener('click', function () {
+          userSatisfactionInstance.removeQuestionById(2)
+        });
+        const button5 = document.getElementById('button5');
+        button5.addEventListener('click', function () {
+          userSatisfactionInstance.removeQuestionById(3)
+        });
+        const button6 = document.getElementById('button6');
+        button6.addEventListener('click', function () {
+          userSatisfactionInstance.removeQuestionById(4)
+        });
+        const button7 = document.getElementById('button7');
+        button7.addEventListener('click', function () {
+          userSatisfactionInstance.removeQuestionById(5)
+        });
+        const button8 = document.getElementById('button8');
+        button8.addEventListener('click', function () {
+          userSatisfactionInstance.removeQuestionById(6)
+        });
+
+        const button9 = document.getElementById('button9');
+        button9.addEventListener('click', function () {
+          userSatisfactionInstance.addQuestion({
+            id: Date.now(),
+            content: `这是在${Date.now()}增加的问题`
+          })
+        });
+      };
+    </script>
   </body>
 </html>
