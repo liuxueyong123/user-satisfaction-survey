@@ -1,4 +1,4 @@
-import { LitElement, css, html } from 'lit'
+import { LitElement, type PropertyValues, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { classMap } from 'lit/directives/class-map.js'
 import { styleMap } from 'lit/directives/style-map.js'
@@ -26,21 +26,36 @@ class UserSatisfactionElement extends LitElement {
   @property({ type: Boolean })
   public isVisible = false
 
+  @property()
+  private styles: Record<string, string | undefined | null> = {}
+
   /**
    * @description: 临时储存用户的答案
    * @return {*}
    */
   private _answers: Answer[] = []
 
+  /**
+   * @description: 生命周期钩子。当 isVisible 被改变时给弹窗附加动画
+   * @param {PropertyValues} changedProperties
+   * @return {*}
+   */
+  protected willUpdate (changedProperties: PropertyValues<this>): void {
+    if (changedProperties.has('isVisible')) {
+      const prevVisible = changedProperties.get('isVisible')
+      if (prevVisible === false) {
+        this.styles = { animation: '0.4s ease forwards fadeIn', display: 'block' }
+      } else if (prevVisible === true) {
+        this.styles = { animation: '0.5s ease forwards fadeOut', display: 'block' }
+      }
+    }
+  }
+
   protected render () {
     const questionContent = this.questionList[this.questionIndex]?.content
-    const componentClasses = {
-      'user-satisfaction-component': true,
-      'is-visible': this.isVisible
-    }
 
     return html`
-      <div class=${classMap(componentClasses)}>
+      <div class="user-satisfaction-component" style=${styleMap(this.styles)}>
         <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" @click=${this._onCloseClick}>
           <path fill-rule="evenodd" clip-rule="evenodd" d="M4.19526 4.19526C4.45561 3.93491 4.87772 3.93491 5.13807 4.19526L8 7.05719L10.8619 4.19526C11.1223 3.93491 11.5444 3.93491 11.8047 4.19526C12.0651 4.45561 12.0651 4.87772 11.8047 5.13807L8.94281 8L11.8047 10.8619C12.0651 11.1223 12.0651 11.5444 11.8047 11.8047C11.5444 12.0651 11.1223 12.0651 10.8619 11.8047L8 8.94281L5.13807 11.8047C4.87772 12.0651 4.45561 12.0651 4.19526 11.8047C3.93491 11.5444 3.93491 11.1223 4.19526 10.8619L7.05719 8L4.19526 5.13807C3.93491 4.87772 3.93491 4.45561 4.19526 4.19526Z" fill="currentColor"/>
         </svg>
@@ -108,7 +123,9 @@ class UserSatisfactionElement extends LitElement {
       this.questionIndex++
     } else {
       this.isVisible = false
-      this.questionIndex = 0
+      setTimeout(() => {
+        this.questionIndex = 0
+      }, 500)
 
       this.dispatchEvent(new CustomEvent('completed', {
         bubbles: false,
@@ -121,18 +138,37 @@ class UserSatisfactionElement extends LitElement {
   static styles = css`
     @keyframes fadeIn {
       0% {
-        opacity:0;
-        transform:translateY(200px)
+        opacity: 0;
+        transform: translateY(200px);
       }
       60% {
-        opacity:1;
-        transform:translateY(-30px)
+        opacity: 1;
+        transform: translateY(-30px);
       }
       80% {
-        transform:translateY(10px)
+        opacity: 1;
+        transform: translateY(10px);
       }
       100% {
-        transform:translateY(0)
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeOut {
+      0% {
+        opacity: 1;
+        transform: translateY(0);
+        pointer-events: none;
+      }
+      20% {
+        opacity: 1;
+        transform: translateY(-30px);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(200px);
+        pointer-events: none;
       }
     }
 
@@ -151,7 +187,6 @@ class UserSatisfactionElement extends LitElement {
       z-index: 9999;
       right: 24px;
       bottom: 40px;
-      display: none;
       border-radius: 8px;
       border: 1px solid #EAECF0;
       box-shadow: 0px 20px 24px -4px rgba(8, 15, 52, 0.08), 0px 8px 8px -4px rgba(8, 15, 52, 0.03);
@@ -160,11 +195,7 @@ class UserSatisfactionElement extends LitElement {
       background: #fff;
       overflow: hidden;
       pointer-events: auto;
-    }
-
-    .user-satisfaction-component.is-visible {
-      display: block;
-      animation: fadeIn 0.4s ease;
+      display: none;
     }
 
     .icon-close {
@@ -303,7 +334,7 @@ class UserSatisfactionElement extends LitElement {
       width: 0;
       height: 100%;
       background: #99CEFF;
-      transition: width 0.3s linear 0.3s;
+      transition: width 0.15s linear 0.15s;
     }
 
     /* active */
@@ -315,17 +346,17 @@ class UserSatisfactionElement extends LitElement {
       width: 0;
       height: 100%;
       background: #0085FF;
-      transition: width 0.3s linear 0.3s;
+      transition: width 0.15s linear 0.15s;
     }
 
     .progress-bar > .progress-item.is-done::before {
       width: 100%;
-      transition: width 0.3s linear;
+      transition: width 0.15s linear;
     }
 
     .progress-bar > .progress-item.is-active::after {
       width: 100%;
-      transition: width 0.3s linear;
+      transition: width 0.15s linear;
     }
   `
 }
