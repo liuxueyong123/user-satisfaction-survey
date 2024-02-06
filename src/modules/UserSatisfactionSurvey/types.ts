@@ -4,6 +4,7 @@ export interface Question {
 }
 
 export interface Answer {
+  index: number
   questionId: number
   score: number
 }

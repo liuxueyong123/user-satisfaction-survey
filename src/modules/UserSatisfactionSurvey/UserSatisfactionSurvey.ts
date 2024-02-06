@@ -45,6 +45,15 @@ class UserSatisfactionSurvey {
   }
 
   /**
+   * @description: 设置用户调查问题
+   * @param {Question} questions
+   * @return {*}
+   */
+  public setQuestions (questions: Question[]) {
+    this._element.questionList = questions
+  }
+
+  /**
    * @description: 删除用户调查问题
    * @param {number} id
    * @return {*}
@@ -75,20 +84,31 @@ class UserSatisfactionSurvey {
   /**
    * @description: 添加用户调查问题
    * @param {Question} question
+   * @param {number} index 可选参数，插入位置
    * @return {*}
    */
-  public addQuestion (question: Question) {
-    this._element.questionList.push(question)
+  public addQuestion (question: Question, index: number = -1) {
+    if (index === -1) {
+      this._element.questionList.push(question)
+    } else {
+      this._element.questionList.splice(index + 1, 0, question)
+    }
     this._element.requestUpdate()
   }
 
   /**
    * @description: 批量添加用户调查问题
-   * @param {array} questions
+   * @param {Question} questions
+   * @param {number} index 可选参数，插入位置
    * @return {*}
    */
-  public addQuestions (questions: Question[]) {
-    this._element.questionList.push(...questions)
+  public addQuestions (questions: Question[], index: number = -1) {
+    if (index === -1) {
+      this._element.questionList.push(...questions)
+    } else {
+      this._element.questionList.splice(index, 0, ...questions)
+    }
+
     this._element.requestUpdate()
   }
 

@@ -12,8 +12,8 @@
   },
   "name": "user-satisfaction-survey",
   "displayName": "User Satisfaction Survey",
-  "description": "基于 lit 实现的跨框架通用用户满意度调查组件，方便快速集成用户满意度调查功能",
-  "version": "0.0.1",
+  "description": "A cross-framework universal user satisfaction survey component based on Lit, for easy and quick integration of user satisfaction survey features.",
+  "version": "0.0.2",
   "publisher": "liuxueyong123",
   "author": {
     "name": "liuxueyong123",

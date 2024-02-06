@@ -93,6 +93,7 @@ class UserSatisfactionElement extends LitElement {
 
   private _onRateClick (score: number) {
     const answer = {
+      index: this.questionIndex,
       questionId: this.questionList[this.questionIndex].id,
       score
     }
@@ -120,18 +121,24 @@ class UserSatisfactionElement extends LitElement {
   static styles = css`
     @keyframes fadeIn {
       0% {
-        transform: translateY(150px);
+        opacity:0;
+        transform:translateY(200px)
       }
-      75% {
-        transform: translateY(-16px);
+      60% {
+        opacity:1;
+        transform:translateY(-30px)
+      }
+      80% {
+        transform:translateY(10px)
       }
       100% {
-        transform: translateY(0);
+        transform:translateY(0)
       }
     }
 
     :host {
       position: fixed;
+      z-index: 9999;
       left: 0;
       top: 0;
       right: 0;

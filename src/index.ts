@@ -1,4 +1,5 @@
 import { UserSatisfactionElement, UserSatisfactionSurvey } from './modules/UserSatisfactionSurvey'
+import { type Answer, type Question } from './modules/UserSatisfactionSurvey/types'
 
 declare global {
   interface HTMLElementTagNameMap {
@@ -8,5 +9,7 @@ declare global {
 
 export {
   UserSatisfactionElement,
-  UserSatisfactionSurvey
+  UserSatisfactionSurvey,
+  type Question,
+  type Answer
 }

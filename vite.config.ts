@@ -6,8 +6,9 @@ export default defineConfig({
   build: {
     lib: {
       entry: "src/index.ts",
-      formats: ["es", 'cjs'],
+      formats: ["es", 'cjs', 'umd'],
       fileName: (format) => `index.${format}.js`,
+      name: "UserSatisfactionSurvey"
     },
     // Because we try to use it independently, we don’t exclude lit.
     // rollupOptions: {
