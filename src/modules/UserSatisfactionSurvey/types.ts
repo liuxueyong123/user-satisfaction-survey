@@ -12,4 +12,5 @@ export interface Answer {
 export interface SurveyEventMap {
   questionCompleted: (answers: Answer) => void
   completed: (answers: Answer[]) => void
+  close: () => void
 }

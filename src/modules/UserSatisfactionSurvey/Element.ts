@@ -104,6 +104,10 @@ class UserSatisfactionElement extends LitElement {
 
   private _onCloseClick () {
     this.isVisible = false
+    this.dispatchEvent(new CustomEvent('close', {
+      bubbles: false,
+      detail: null
+    }))
   }
 
   private _onRateClick (score: number) {
