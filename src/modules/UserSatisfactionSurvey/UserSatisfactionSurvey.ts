@@ -19,7 +19,8 @@ class UserSatisfactionSurvey {
    * @description: 展示用户调查弹窗
    * @return {*}
    */
-  public launch () {
+  public async launch () {
+    await this._element.updateComplete
     this._element.isVisible = true
   }
 

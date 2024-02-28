@@ -1160,8 +1160,8 @@ class le {
    * @description: 展示用户调查弹窗
    * @return {*}
    */
-  launch() {
-    this._element.isVisible = !0;
+  async launch() {
+    await this._element.updateComplete, this._element.isVisible = !0;
   }
   /**
    * @description: 主动关闭用户调查弹窗

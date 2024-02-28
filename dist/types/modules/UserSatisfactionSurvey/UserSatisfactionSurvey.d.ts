@@ -7,7 +7,7 @@ declare class UserSatisfactionSurvey {
      * @description: 展示用户调查弹窗
      * @return {*}
      */
-    launch(): void;
+    launch(): Promise<void>;
     /**
      * @description: 主动关闭用户调查弹窗
      * @return {*}
