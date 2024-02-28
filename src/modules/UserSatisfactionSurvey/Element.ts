@@ -184,6 +184,8 @@ class UserSatisfactionElement extends LitElement {
       right: 0;
       bottom: 0;
       pointer-events: none;
+
+      --usc-modal-width: 400px;
     }
 
     .user-satisfaction-component {
@@ -194,7 +196,7 @@ class UserSatisfactionElement extends LitElement {
       border-radius: 8px;
       border: 1px solid #EAECF0;
       box-shadow: 0px 20px 24px -4px rgba(8, 15, 52, 0.08), 0px 8px 8px -4px rgba(8, 15, 52, 0.03);
-      width: 400px;
+      width: var(--usc-modal-width);
       padding: 24px;
       background: #fff;
       overflow: hidden;
