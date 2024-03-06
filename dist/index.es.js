@@ -1133,6 +1133,18 @@ v.styles = It`
       width: 100%;
       transition: width 0.15s linear;
     }
+
+    @media (max-width: 500px) {
+      .user-satisfaction-component {
+        right: 12px;
+        padding: 20px 12px;
+        width: calc(100% - 48px);
+      }
+
+      .content-wrapper > .option-wrapper > .rate-wrapper {
+        margin: 0 12px;
+      }
+    }
   `;
 H([
   j({ type: Array })
