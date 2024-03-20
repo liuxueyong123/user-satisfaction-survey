@@ -13,7 +13,7 @@
   "name": "user-satisfaction-survey",
   "displayName": "User Satisfaction Survey",
   "description": "A cross-framework universal user satisfaction survey component based on Lit, for easy and quick integration of user satisfaction survey features.",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "publisher": "liuxueyong123",
   "author": {
     "name": "liuxueyong123",

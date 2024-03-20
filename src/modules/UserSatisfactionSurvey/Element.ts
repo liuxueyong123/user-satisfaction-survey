@@ -188,14 +188,18 @@ class UserSatisfactionElement extends LitElement {
       --usc-modal-width: 400px;
     }
 
+    * {
+      box-sizing: border-box;
+    }
+
     .user-satisfaction-component {
       position: absolute;
       z-index: 9999;
-      right: 24px;
+      left: calc(50% - var(--usc-modal-width) / 2);
       bottom: 40px;
       border-radius: 8px;
       border: 1px solid #EAECF0;
-      box-shadow: 0px 20px 24px -4px rgba(8, 15, 52, 0.08), 0px 8px 8px -4px rgba(8, 15, 52, 0.03);
+      box-shadow: 0px 24px 48px -12px rgba(8, 15, 52, 0.18);
       width: var(--usc-modal-width);
       padding: 24px;
       background: #fff;
@@ -225,8 +229,8 @@ class UserSatisfactionElement extends LitElement {
     .question {
       font-family: "PingFang SC";
       font-style: normal;
-      font-size: 14px;
-      line-height: 22px;
+      font-size: 16px;
+      line-height: 24px;
       font-weight: 500;
       color: #344054;
     }
@@ -367,9 +371,8 @@ class UserSatisfactionElement extends LitElement {
 
     @media (max-width: 500px) {
       .user-satisfaction-component {
-        right: 12px;
         padding: 20px 12px;
-        width: calc(100% - 48px);
+        --usc-modal-width: calc(100% - 24px);
       }
 
       .content-wrapper > .option-wrapper > .rate-wrapper {
