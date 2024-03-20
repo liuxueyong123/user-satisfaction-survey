@@ -11,9 +11,9 @@ export default defineConfig({
       name: "UserSatisfactionSurvey"
     },
     // Because we try to use it independently, we don’t exclude lit.
-    // rollupOptions: {
-    //   external: /^lit/,
-    // },
+    rollupOptions: {
+      external: /^lit/,
+    },
   },
   plugins: [
     dts({

@@ -185,7 +185,7 @@ class UserSatisfactionElement extends LitElement {
       bottom: 0;
       pointer-events: none;
 
-      --usc-modal-width: 400px;
+      --usc-modal-width: 480px;
     }
 
     * {
