@@ -1,15 +1,15 @@
-import { css as f, LitElement as x, html as r, isServer as u } from "lit";
-import { property as l, customElement as w } from "lit/decorators.js";
-import { classMap as v } from "lit/directives/class-map.js";
+import { css as m, LitElement as f, html as o } from "lit";
+import { property as l, customElement as x } from "lit/decorators.js";
+import { classMap as w } from "lit/directives/class-map.js";
 import { styleMap as h } from "lit/directives/style-map.js";
 import { repeat as c } from "lit/directives/repeat.js";
-const m = "user-satisfaction";
-var g = Object.defineProperty, b = Object.getOwnPropertyDescriptor, o = (a, e, t, n) => {
-  for (var s = n > 1 ? void 0 : n ? b(e, t) : e, p = a.length - 1, d; p >= 0; p--)
-    (d = a[p]) && (s = (n ? d(e, t, s) : d(s)) || s);
-  return n && s && g(e, t, s), s;
+const u = "user-satisfaction";
+var g = Object.defineProperty, v = Object.getOwnPropertyDescriptor, a = (s, e, t, r) => {
+  for (var i = r > 1 ? void 0 : r ? v(e, t) : e, p = s.length - 1, d; p >= 0; p--)
+    (d = s[p]) && (i = (r ? d(e, t, i) : d(i)) || i);
+  return r && i && g(e, t, i), i;
 };
-let i = class extends x {
+let n = class extends f {
   constructor() {
     super(...arguments), this.questionList = [], this.questionIndex = 0, this.isVisible = !1, this.styles = {}, this._answers = [];
   }
@@ -18,21 +18,21 @@ let i = class extends x {
    * @param {PropertyValues} changedProperties
    * @return {*}
    */
-  willUpdate(e) {
-    if (e.has("isVisible")) {
-      const t = e.get("isVisible");
-      t === !1 ? this.styles = { animation: "0.4s ease forwards fadeIn", display: "block" } : t === !0 && (this.styles = { animation: "0.5s ease forwards fadeOut", display: "block" });
+  willUpdate(s) {
+    if (s.has("isVisible")) {
+      const e = s.get("isVisible");
+      e === !1 ? this.styles = { animation: "0.4s ease forwards fadeIn", display: "block" } : e === !0 && (this.styles = { animation: "0.5s ease forwards fadeOut", display: "block" });
     }
   }
   render() {
-    var t;
-    const e = (t = this.questionList[this.questionIndex]) == null ? void 0 : t.content;
-    return r`
+    var e;
+    const s = (e = this.questionList[this.questionIndex]) == null ? void 0 : e.content;
+    return o`
       <div class="user-satisfaction-component" style=${h(this.styles)}>
         <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" @click=${this._onCloseClick}>
           <path fill-rule="evenodd" clip-rule="evenodd" d="M4.19526 4.19526C4.45561 3.93491 4.87772 3.93491 5.13807 4.19526L8 7.05719L10.8619 4.19526C11.1223 3.93491 11.5444 3.93491 11.8047 4.19526C12.0651 4.45561 12.0651 4.87772 11.8047 5.13807L8.94281 8L11.8047 10.8619C12.0651 11.1223 12.0651 11.5444 11.8047 11.8047C11.5444 12.0651 11.1223 12.0651 10.8619 11.8047L8 8.94281L5.13807 11.8047C4.87772 12.0651 4.45561 12.0651 4.19526 11.8047C3.93491 11.5444 3.93491 11.1223 4.19526 10.8619L7.05719 8L4.19526 5.13807C3.93491 4.87772 3.93491 4.45561 4.19526 4.19526Z" fill="currentColor"/>
         </svg>
-        <div class="question">${e}</div>
+        <div class="question">${s}</div>
         <div class="content-wrapper">
           <div class="option-wrapper">
             <div class="desc-text">不同意</div>
@@ -46,25 +46,25 @@ let i = class extends x {
     `;
   }
   renderProgressText() {
-    return r`<div class="progress-text" style=${h({ opacity: this.questionIndex === 0 ? "0" : "100%" })}>${this.questionIndex + 1}/${this.questionList.length}</div>`;
+    return o`<div class="progress-text" style=${h({ opacity: this.questionIndex === 0 ? "0" : "100%" })}>${this.questionIndex + 1}/${this.questionList.length}</div>`;
   }
   renderProgressBar() {
-    return r`
+    return o`
       <div class="progress-bar" style=${h({ opacity: this.questionIndex === 0 ? "0" : "100%" })}>
         ${c(
       this.questionList,
-      (e) => e.id,
-      (e, t) => r`<div class="${v({ "progress-item": !0, "is-done": t < this.questionIndex, "is-active": t === this.questionIndex })}"></div>`
+      (s) => s.id,
+      (s, e) => o`<div class="${w({ "progress-item": !0, "is-done": e < this.questionIndex, "is-active": e === this.questionIndex })}"></div>`
     )}
       </div>
     `;
   }
   renderRate() {
-    return r`
+    return o`
       <div class="rate-wrapper">
-        ${c(["rate5", "rate4", "rate3", "rate2", "rate1"], (e) => e, (e, t) => r`
-          <input type="radio" name="rate" id=${e}>
-          <label for=${e} @click=${() => this._onRateClick(5 - t)}>
+        ${c(["rate5", "rate4", "rate3", "rate2", "rate1"], (s) => s, (s, e) => o`
+          <input type="radio" name="rate" id=${s}>
+          <label for=${s} @click=${() => this._onRateClick(5 - e)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
               <path d="M10.2826 1.83735C10.5131 1.37041 10.6284 1.13694 10.7848 1.06235C10.9209 0.997447 11.0791 0.997447 11.2152 1.06235C11.3716 1.13694 11.4869 1.37041 11.7174 1.83735L13.904 6.26732C13.9721 6.40517 14.0061 6.47409 14.0558 6.52761C14.0999 6.57499 14.1527 6.61338 14.2113 6.64065C14.2775 6.67146 14.3536 6.68257 14.5057 6.70481L19.397 7.41974C19.912 7.49502 20.1696 7.53267 20.2888 7.65847C20.3925 7.76792 20.4412 7.91833 20.4215 8.06781C20.3988 8.23961 20.2124 8.42121 19.8395 8.78441L16.3014 12.2305C16.1911 12.3379 16.136 12.3916 16.1004 12.4555C16.0689 12.5121 16.0487 12.5742 16.0409 12.6385C16.0321 12.7112 16.0451 12.787 16.0711 12.9388L16.9059 17.8061C16.994 18.3195 17.038 18.5762 16.9553 18.7285C16.8833 18.8611 16.7553 18.954 16.607 18.9815C16.4366 19.0131 16.2061 18.8919 15.7451 18.6494L11.3724 16.3499C11.2361 16.2782 11.168 16.2424 11.0962 16.2283C11.0327 16.2159 10.9673 16.2159 10.9038 16.2283C10.832 16.2424 10.7639 16.2782 10.6276 16.3499L6.25491 18.6494C5.7939 18.8919 5.5634 19.0131 5.39296 18.9815C5.24467 18.954 5.11671 18.8611 5.04472 18.7285C4.96199 18.5762 5.00601 18.3195 5.09406 17.8061L5.92887 12.9388C5.9549 12.787 5.96791 12.7112 5.9591 12.6385C5.95131 12.5742 5.9311 12.5121 5.89959 12.4555C5.86401 12.3916 5.80886 12.3379 5.69857 12.2305L2.16054 8.78441C1.78765 8.42121 1.6012 8.23961 1.57851 8.06781C1.55877 7.91833 1.60754 7.76792 1.71124 7.65847C1.83042 7.53267 2.08796 7.49502 2.60303 7.41974L7.4943 6.70481C7.64641 6.68257 7.72247 6.67146 7.7887 6.64065C7.84735 6.61338 7.90015 6.57499 7.94417 6.52761C7.99389 6.47409 8.02791 6.40517 8.09596 6.26732L10.2826 1.83735Z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
             </svg>
@@ -79,15 +79,15 @@ let i = class extends x {
       detail: null
     }));
   }
-  _onRateClick(e) {
-    const t = {
+  _onRateClick(s) {
+    const e = {
       index: this.questionIndex,
       questionId: this.questionList[this.questionIndex].id,
-      score: e
+      score: s
     };
-    this._answers.push(t), this.dispatchEvent(new CustomEvent("questionCompleted", {
+    this._answers.push(e), this.dispatchEvent(new CustomEvent("questionCompleted", {
       bubbles: !1,
-      detail: t
+      detail: e
     })), this.questionIndex < this.questionList.length - 1 ? this.questionIndex++ : (this.isVisible = !1, setTimeout(() => {
       this.questionIndex = 0;
     }, 500), this.dispatchEvent(new CustomEvent("completed", {
@@ -96,7 +96,7 @@ let i = class extends x {
     })), this._answers = []);
   }
 };
-i.styles = f`
+n.styles = m`
     @keyframes fadeIn {
       0% {
         opacity: 0;
@@ -337,26 +337,26 @@ i.styles = f`
       }
     }
   `;
-o([
+a([
   l({ type: Array })
-], i.prototype, "questionList", 2);
-o([
+], n.prototype, "questionList", 2);
+a([
   l({ type: Number })
-], i.prototype, "questionIndex", 2);
-o([
+], n.prototype, "questionIndex", 2);
+a([
   l({ type: Boolean })
-], i.prototype, "isVisible", 2);
-o([
+], n.prototype, "isVisible", 2);
+a([
   l()
-], i.prototype, "styles", 2);
-i = o([
-  w(m)
-], i);
-const C = i;
-let y = class {
+], n.prototype, "styles", 2);
+n = a([
+  x(u)
+], n);
+const L = n;
+class I {
   constructor(e = []) {
     this._listenerDestroyers = [];
-    const t = document.createElement(m);
+    const t = document.createElement(u);
     this._element = t, e.length > 0 && this.addQuestions(e), document.body.appendChild(this._element);
   }
   /**
@@ -430,16 +430,15 @@ let y = class {
     t === -1 ? this._element.questionList.push(...e) : this._element.questionList.splice(t, 0, ...e), this._element.requestUpdate();
   }
   on(e, t) {
-    const n = (s) => {
-      t(s.detail);
+    const r = (i) => {
+      t(i.detail);
     };
-    this._element.addEventListener(e, n), this._listenerDestroyers.push(() => {
-      this._element.removeEventListener(e, n);
+    this._element.addEventListener(e, r), this._listenerDestroyers.push(() => {
+      this._element.removeEventListener(e, r);
     });
   }
-};
-const F = u ? null : C, S = u ? null : y;
+}
 export {
-  F as UserSatisfactionElement,
-  S as UserSatisfactionSurvey
+  L as UserSatisfactionElement,
+  I as UserSatisfactionSurvey
 };
