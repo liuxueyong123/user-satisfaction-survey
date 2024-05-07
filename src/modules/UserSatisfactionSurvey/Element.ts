@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/strict-boolean-expressions */
 import { LitElement, type PropertyValues, css, html } from 'lit'
 import { customElement, property } from 'lit/decorators.js'
 import { classMap } from 'lit/directives/class-map.js'
@@ -27,7 +28,10 @@ class UserSatisfactionElement extends LitElement {
   public isVisible = false
 
   @property()
-  private styles: Record<string, string | undefined | null> = {}
+  private _styles: Record<string, string | undefined | null> = {}
+
+  @property({ type: String })
+  private _currentText = ''
 
   /**
    * @description: 临时储存用户的答案
@@ -44,9 +48,9 @@ class UserSatisfactionElement extends LitElement {
     if (changedProperties.has('isVisible')) {
       const prevVisible = changedProperties.get('isVisible')
       if (prevVisible === false) {
-        this.styles = { animation: '0.4s ease forwards fadeIn', display: 'block' }
+        this._styles = { animation: '0.4s ease forwards fadeIn', display: 'block' }
       } else if (prevVisible === true) {
-        this.styles = { animation: '0.5s ease forwards fadeOut', display: 'block' }
+        this._styles = { animation: '0.5s ease forwards fadeOut', display: 'block' }
       }
     }
   }
@@ -55,20 +59,37 @@ class UserSatisfactionElement extends LitElement {
     const questionContent = this.questionList[this.questionIndex]?.content
 
     return html`
-      <div class="user-satisfaction-component" style=${styleMap(this.styles)}>
+      <div class="user-satisfaction-component" style=${styleMap(this._styles)}>
         <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" @click=${this._onCloseClick}>
           <path fill-rule="evenodd" clip-rule="evenodd" d="M4.19526 4.19526C4.45561 3.93491 4.87772 3.93491 5.13807 4.19526L8 7.05719L10.8619 4.19526C11.1223 3.93491 11.5444 3.93491 11.8047 4.19526C12.0651 4.45561 12.0651 4.87772 11.8047 5.13807L8.94281 8L11.8047 10.8619C12.0651 11.1223 12.0651 11.5444 11.8047 11.8047C11.5444 12.0651 11.1223 12.0651 10.8619 11.8047L8 8.94281L5.13807 11.8047C4.87772 12.0651 4.45561 12.0651 4.19526 11.8047C3.93491 11.5444 3.93491 11.1223 4.19526 10.8619L7.05719 8L4.19526 5.13807C3.93491 4.87772 3.93491 4.45561 4.19526 4.19526Z" fill="currentColor"/>
         </svg>
         <div class="question">${questionContent}</div>
-        <div class="content-wrapper">
-          <div class="option-wrapper">
-            <div class="desc-text">不同意</div>
-            ${this.renderRate()}
-            <div class="desc-text">同意</div>
-          </div>
-          ${this.renderProgressText()}
-        </div>
+        ${this.renderContent()}
         ${this.renderProgressBar()}
+      </div>
+    `
+  }
+
+  private renderContent () {
+    const currentQuestion = this.questionList[this.questionIndex]
+
+    if (currentQuestion.type === 'textarea') {
+      return html`
+        <div class="textarea-wrapper">
+          <textarea class="question-textarea" @input=${this._onTextareaInput} placeholder=${currentQuestion.placeholder ?? ''}></textarea>
+          <button class="textarea-submit-btn" @click=${this._onTextareaInputSubmit}>提交</button>
+        </div>
+      `
+    }
+
+    return html`
+      <div class="content-wrapper">
+        <div class="option-wrapper">
+          <div class="desc-text">不同意</div>
+          ${this.renderRate()}
+          <div class="desc-text">同意</div>
+        </div>
+        ${this.renderProgressText()}
       </div>
     `
   }
@@ -111,10 +132,25 @@ class UserSatisfactionElement extends LitElement {
   }
 
   private _onRateClick (score: number) {
+    this._onQuestionCompleted(score)
+  }
+
+  private _onTextareaInput (e: InputEvent) {
+    const inputElement = e.target as HTMLInputElement
+    this._currentText = inputElement.value
+  }
+
+  private _onTextareaInputSubmit () {
+    this._onQuestionCompleted(this._currentText)
+    this._currentText = ''
+  }
+
+  private _onQuestionCompleted (data: any) {
     const answer = {
       index: this.questionIndex,
       questionId: this.questionList[this.questionIndex].id,
-      score
+      data,
+      type: this.questionList[this.questionIndex].type ?? 'rate'
     }
     this._answers.push(answer)
 
@@ -233,6 +269,43 @@ class UserSatisfactionElement extends LitElement {
       line-height: 24px;
       font-weight: 500;
       color: #344054;
+    }
+
+    .textarea-wrapper {
+      margin-top: 12px;
+    }
+
+    .textarea-wrapper > .question-textarea {
+      display: block;
+      outline: none;
+      border-radius: 8px;
+      border: 1px solid #D0D5DD;
+      width: 100%;
+      height: 80px;
+      padding: 12px 14px;
+      font-family: "PingFang SC";
+      font-size: 14px;
+      line-height: 22px;
+      color: #344054;
+      resize: none;
+      background: #fff;
+      transition: border 0.2s ease;
+    }
+    .textarea-wrapper > .question-textarea:focus {
+      border: 1px solid #0085FF;
+    }
+    /* .textarea-wrapper > .question-textarea:hover {
+      border: 1px solid #0085FF;
+    } */
+    .textarea-wrapper > .question-textarea::placeholder {
+      font-family: "PingFang SC";
+      font-size: 14px;
+      line-height: 22px;
+      color: #667085;
+    }
+
+    .textarea-wrapper > .textarea-submit-btn {
+
     }
 
     .content-wrapper {

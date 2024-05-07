@@ -13,7 +13,8 @@ declare class UserSatisfactionElement extends LitElement {
      * 是否展示当前组件
      */
     isVisible: boolean;
-    private styles;
+    private _styles;
+    private _currentText;
     /**
      * @description: 临时储存用户的答案
      * @return {*}
@@ -26,11 +27,15 @@ declare class UserSatisfactionElement extends LitElement {
      */
     protected willUpdate(changedProperties: PropertyValues<this>): void;
     protected render(): import("lit").TemplateResult<1>;
+    private renderContent;
     private renderProgressText;
     private renderProgressBar;
     private renderRate;
     private _onCloseClick;
     private _onRateClick;
+    private _onTextareaInput;
+    private _onTextareaInputSubmit;
+    private _onQuestionCompleted;
     static styles: import("lit").CSSResult;
 }
 export default UserSatisfactionElement;
