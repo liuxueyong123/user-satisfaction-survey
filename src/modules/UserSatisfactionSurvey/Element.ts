@@ -77,7 +77,7 @@ class UserSatisfactionElement extends LitElement {
       return html`
         <div class="textarea-wrapper">
           <textarea class="question-textarea" @input=${this._onTextareaInput} placeholder=${currentQuestion.placeholder ?? ''}></textarea>
-          <button class="textarea-submit-btn" @click=${this._onTextareaInputSubmit}>提交</button>
+          <div class="submit-btn-wrapper"><div class="textarea-submit-btn" @click=${this._onTextareaInputSubmit}>提交</div></div>
         </div>
       `
     }
@@ -293,10 +293,11 @@ class UserSatisfactionElement extends LitElement {
     }
     .textarea-wrapper > .question-textarea:focus {
       border: 1px solid #0085FF;
+      outline: #E5F2FF solid 3px;
     }
-    /* .textarea-wrapper > .question-textarea:hover {
+    .textarea-wrapper > .question-textarea:hover {
       border: 1px solid #0085FF;
-    } */
+    }
     .textarea-wrapper > .question-textarea::placeholder {
       font-family: "PingFang SC";
       font-size: 14px;
@@ -304,8 +305,28 @@ class UserSatisfactionElement extends LitElement {
       color: #667085;
     }
 
-    .textarea-wrapper > .textarea-submit-btn {
+    .textarea-wrapper > .submit-btn-wrapper {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: row-reverse;
+    }
 
+    .submit-btn-wrapper > .textarea-submit-btn {
+      border-radius: 4px;
+      border: 1px solid #0085FF;
+      background: #0085FF;
+      padding: 3px 12px;
+      font-family: "Helvetica Neue";
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 400;
+      color: #FFF;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .submit-btn-wrapper > .textarea-submit-btn:hover {
+      border: 1px solid #349EFF;
+      background: #349EFF;
     }
 
     .content-wrapper {

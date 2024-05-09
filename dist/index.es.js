@@ -1,15 +1,15 @@
-import { css as m, LitElement as x, html as r } from "lit";
+import { css as x, LitElement as m, html as n } from "lit";
 import { property as l, customElement as f } from "lit/decorators.js";
 import { classMap as w } from "lit/directives/class-map.js";
 import { styleMap as h } from "lit/directives/style-map.js";
 import { repeat as u } from "lit/directives/repeat.js";
 const c = "user-satisfaction";
-var g = Object.defineProperty, b = Object.getOwnPropertyDescriptor, a = (t, e, s, o) => {
-  for (var i = o > 1 ? void 0 : o ? b(e, s) : e, p = t.length - 1, d; p >= 0; p--)
+var b = Object.defineProperty, g = Object.getOwnPropertyDescriptor, a = (t, e, s, o) => {
+  for (var i = o > 1 ? void 0 : o ? g(e, s) : e, p = t.length - 1, d; p >= 0; p--)
     (d = t[p]) && (i = (o ? d(e, s, i) : d(i)) || i);
-  return o && i && g(e, s, i), i;
+  return o && i && b(e, s, i), i;
 };
-let n = class extends x {
+let r = class extends m {
   constructor() {
     super(...arguments), this.questionList = [], this.questionIndex = 0, this.isVisible = !1, this._styles = {}, this._currentText = "", this._answers = [];
   }
@@ -27,7 +27,7 @@ let n = class extends x {
   render() {
     var e;
     const t = (e = this.questionList[this.questionIndex]) == null ? void 0 : e.content;
-    return r`
+    return n`
       <div class="user-satisfaction-component" style=${h(this._styles)}>
         <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" @click=${this._onCloseClick}>
           <path fill-rule="evenodd" clip-rule="evenodd" d="M4.19526 4.19526C4.45561 3.93491 4.87772 3.93491 5.13807 4.19526L8 7.05719L10.8619 4.19526C11.1223 3.93491 11.5444 3.93491 11.8047 4.19526C12.0651 4.45561 12.0651 4.87772 11.8047 5.13807L8.94281 8L11.8047 10.8619C12.0651 11.1223 12.0651 11.5444 11.8047 11.8047C11.5444 12.0651 11.1223 12.0651 10.8619 11.8047L8 8.94281L5.13807 11.8047C4.87772 12.0651 4.45561 12.0651 4.19526 11.8047C3.93491 11.5444 3.93491 11.1223 4.19526 10.8619L7.05719 8L4.19526 5.13807C3.93491 4.87772 3.93491 4.45561 4.19526 4.19526Z" fill="currentColor"/>
@@ -40,12 +40,12 @@ let n = class extends x {
   }
   renderContent() {
     const t = this.questionList[this.questionIndex];
-    return t.type === "textarea" ? r`
+    return t.type === "textarea" ? n`
         <div class="textarea-wrapper">
           <textarea class="question-textarea" @input=${this._onTextareaInput} placeholder=${t.placeholder ?? ""}></textarea>
-          <button class="textarea-submit-btn" @click=${this._onTextareaInputSubmit}>提交</button>
+          <div class="submit-btn-wrapper"><div class="textarea-submit-btn" @click=${this._onTextareaInputSubmit}>提交</div></div>
         </div>
-      ` : r`
+      ` : n`
       <div class="content-wrapper">
         <div class="option-wrapper">
           <div class="desc-text">不同意</div>
@@ -57,23 +57,23 @@ let n = class extends x {
     `;
   }
   renderProgressText() {
-    return r`<div class="progress-text" style=${h({ opacity: this.questionIndex === 0 ? "0" : "100%" })}>${this.questionIndex + 1}/${this.questionList.length}</div>`;
+    return n`<div class="progress-text" style=${h({ opacity: this.questionIndex === 0 ? "0" : "100%" })}>${this.questionIndex + 1}/${this.questionList.length}</div>`;
   }
   renderProgressBar() {
-    return r`
+    return n`
       <div class="progress-bar" style=${h({ opacity: this.questionIndex === 0 ? "0" : "100%" })}>
         ${u(
       this.questionList,
       (t) => t.id,
-      (t, e) => r`<div class="${w({ "progress-item": !0, "is-done": e < this.questionIndex, "is-active": e === this.questionIndex })}"></div>`
+      (t, e) => n`<div class="${w({ "progress-item": !0, "is-done": e < this.questionIndex, "is-active": e === this.questionIndex })}"></div>`
     )}
       </div>
     `;
   }
   renderRate() {
-    return r`
+    return n`
       <div class="rate-wrapper">
-        ${u(["rate5", "rate4", "rate3", "rate2", "rate1"], (t) => t, (t, e) => r`
+        ${u(["rate5", "rate4", "rate3", "rate2", "rate1"], (t) => t, (t, e) => n`
           <input type="radio" name="rate" id=${t}>
           <label for=${t} @click=${() => this._onRateClick(5 - e)}>
             <svg xmlns="http://www.w3.org/2000/svg" width="22" height="20" viewBox="0 0 22 20" fill="none">
@@ -118,7 +118,7 @@ let n = class extends x {
     })), this._answers = []);
   }
 };
-n.styles = m`
+r.styles = x`
     @keyframes fadeIn {
       0% {
         opacity: 0;
@@ -236,10 +236,11 @@ n.styles = m`
     }
     .textarea-wrapper > .question-textarea:focus {
       border: 1px solid #0085FF;
+      outline: #E5F2FF solid 3px;
     }
-    /* .textarea-wrapper > .question-textarea:hover {
+    .textarea-wrapper > .question-textarea:hover {
       border: 1px solid #0085FF;
-    } */
+    }
     .textarea-wrapper > .question-textarea::placeholder {
       font-family: "PingFang SC";
       font-size: 14px;
@@ -247,8 +248,28 @@ n.styles = m`
       color: #667085;
     }
 
-    .textarea-wrapper > .textarea-submit-btn {
+    .textarea-wrapper > .submit-btn-wrapper {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: row-reverse;
+    }
 
+    .submit-btn-wrapper > .textarea-submit-btn {
+      border-radius: 4px;
+      border: 1px solid #0085FF;
+      background: #0085FF;
+      padding: 3px 12px;
+      font-family: "Helvetica Neue";
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 400;
+      color: #FFF;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .submit-btn-wrapper > .textarea-submit-btn:hover {
+      border: 1px solid #349EFF;
+      background: #349EFF;
     }
 
     .content-wrapper {
@@ -398,24 +419,24 @@ n.styles = m`
   `;
 a([
   l({ type: Array })
-], n.prototype, "questionList", 2);
+], r.prototype, "questionList", 2);
 a([
   l({ type: Number })
-], n.prototype, "questionIndex", 2);
+], r.prototype, "questionIndex", 2);
 a([
   l({ type: Boolean })
-], n.prototype, "isVisible", 2);
+], r.prototype, "isVisible", 2);
 a([
   l()
-], n.prototype, "_styles", 2);
+], r.prototype, "_styles", 2);
 a([
   l({ type: String })
-], n.prototype, "_currentText", 2);
-n = a([
+], r.prototype, "_currentText", 2);
+r = a([
   f(c)
-], n);
-const L = n;
-class I {
+], r);
+const L = r;
+class F {
   constructor(e = []) {
     this._listenerDestroyers = [];
     const s = document.createElement(c);
@@ -502,5 +523,5 @@ class I {
 }
 export {
   L as UserSatisfactionElement,
-  I as UserSatisfactionSurvey
+  F as UserSatisfactionSurvey
 };

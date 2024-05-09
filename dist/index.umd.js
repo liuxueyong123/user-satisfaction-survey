@@ -1,4 +1,4 @@
-(function(n,i){typeof exports=="object"&&typeof module<"u"?i(exports,require("lit"),require("lit/decorators.js"),require("lit/directives/class-map.js"),require("lit/directives/style-map.js"),require("lit/directives/repeat.js")):typeof define=="function"&&define.amd?define(["exports","lit","lit/decorators.js","lit/directives/class-map.js","lit/directives/style-map.js","lit/directives/repeat.js"],i):(n=typeof globalThis<"u"?globalThis:n||self,i(n.UserSatisfactionSurvey={},n.lit,n.decorators_js,n.classMap_js,n.styleMap_js,n.repeat_js))})(this,function(n,i,l,f,d,c){"use strict";const m="user-satisfaction";var x=Object.defineProperty,w=Object.getOwnPropertyDescriptor,p=(t,e,s,a)=>{for(var o=a>1?void 0:a?w(e,s):e,h=t.length-1,u;h>=0;h--)(u=t[h])&&(o=(a?u(e,s,o):u(o))||o);return a&&o&&x(e,s,o),o};let r=class extends i.LitElement{constructor(){super(...arguments),this.questionList=[],this.questionIndex=0,this.isVisible=!1,this._styles={},this._currentText="",this._answers=[]}willUpdate(t){if(t.has("isVisible")){const e=t.get("isVisible");e===!1?this._styles={animation:"0.4s ease forwards fadeIn",display:"block"}:e===!0&&(this._styles={animation:"0.5s ease forwards fadeOut",display:"block"})}}render(){var e;const t=(e=this.questionList[this.questionIndex])==null?void 0:e.content;return i.html`
+(function(r,i){typeof exports=="object"&&typeof module<"u"?i(exports,require("lit"),require("lit/decorators.js"),require("lit/directives/class-map.js"),require("lit/directives/style-map.js"),require("lit/directives/repeat.js")):typeof define=="function"&&define.amd?define(["exports","lit","lit/decorators.js","lit/directives/class-map.js","lit/directives/style-map.js","lit/directives/repeat.js"],i):(r=typeof globalThis<"u"?globalThis:r||self,i(r.UserSatisfactionSurvey={},r.lit,r.decorators_js,r.classMap_js,r.styleMap_js,r.repeat_js))})(this,function(r,i,l,x,d,c){"use strict";const m="user-satisfaction";var f=Object.defineProperty,w=Object.getOwnPropertyDescriptor,p=(t,e,s,a)=>{for(var o=a>1?void 0:a?w(e,s):e,h=t.length-1,u;h>=0;h--)(u=t[h])&&(o=(a?u(e,s,o):u(o))||o);return a&&o&&f(e,s,o),o};let n=class extends i.LitElement{constructor(){super(...arguments),this.questionList=[],this.questionIndex=0,this.isVisible=!1,this._styles={},this._currentText="",this._answers=[]}willUpdate(t){if(t.has("isVisible")){const e=t.get("isVisible");e===!1?this._styles={animation:"0.4s ease forwards fadeIn",display:"block"}:e===!0&&(this._styles={animation:"0.5s ease forwards fadeOut",display:"block"})}}render(){var e;const t=(e=this.questionList[this.questionIndex])==null?void 0:e.content;return i.html`
       <div class="user-satisfaction-component" style=${d.styleMap(this._styles)}>
         <svg class="icon-close" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16" fill="none" @click=${this._onCloseClick}>
           <path fill-rule="evenodd" clip-rule="evenodd" d="M4.19526 4.19526C4.45561 3.93491 4.87772 3.93491 5.13807 4.19526L8 7.05719L10.8619 4.19526C11.1223 3.93491 11.5444 3.93491 11.8047 4.19526C12.0651 4.45561 12.0651 4.87772 11.8047 5.13807L8.94281 8L11.8047 10.8619C12.0651 11.1223 12.0651 11.5444 11.8047 11.8047C11.5444 12.0651 11.1223 12.0651 10.8619 11.8047L8 8.94281L5.13807 11.8047C4.87772 12.0651 4.45561 12.0651 4.19526 11.8047C3.93491 11.5444 3.93491 11.1223 4.19526 10.8619L7.05719 8L4.19526 5.13807C3.93491 4.87772 3.93491 4.45561 4.19526 4.19526Z" fill="currentColor"/>
@@ -10,7 +10,7 @@
     `}renderContent(){const t=this.questionList[this.questionIndex];return t.type==="textarea"?i.html`
         <div class="textarea-wrapper">
           <textarea class="question-textarea" @input=${this._onTextareaInput} placeholder=${t.placeholder??""}></textarea>
-          <button class="textarea-submit-btn" @click=${this._onTextareaInputSubmit}>提交</button>
+          <div class="submit-btn-wrapper"><div class="textarea-submit-btn" @click=${this._onTextareaInputSubmit}>提交</div></div>
         </div>
       `:i.html`
       <div class="content-wrapper">
@@ -23,7 +23,7 @@
       </div>
     `}renderProgressText(){return i.html`<div class="progress-text" style=${d.styleMap({opacity:this.questionIndex===0?"0":"100%"})}>${this.questionIndex+1}/${this.questionList.length}</div>`}renderProgressBar(){return i.html`
       <div class="progress-bar" style=${d.styleMap({opacity:this.questionIndex===0?"0":"100%"})}>
-        ${c.repeat(this.questionList,t=>t.id,(t,e)=>i.html`<div class="${f.classMap({"progress-item":!0,"is-done":e<this.questionIndex,"is-active":e===this.questionIndex})}"></div>`)}
+        ${c.repeat(this.questionList,t=>t.id,(t,e)=>i.html`<div class="${x.classMap({"progress-item":!0,"is-done":e<this.questionIndex,"is-active":e===this.questionIndex})}"></div>`)}
       </div>
     `}renderRate(){return i.html`
       <div class="rate-wrapper">
@@ -36,7 +36,7 @@
           </label>
         `)}
       </div>
-    `}_onCloseClick(){this.isVisible=!1,this.dispatchEvent(new CustomEvent("close",{bubbles:!1,detail:null}))}_onRateClick(t){this._onQuestionCompleted(t)}_onTextareaInput(t){const e=t.target;this._currentText=e.value}_onTextareaInputSubmit(){this._onQuestionCompleted(this._currentText),this._currentText=""}_onQuestionCompleted(t){const e={index:this.questionIndex,questionId:this.questionList[this.questionIndex].id,data:t,type:this.questionList[this.questionIndex].type??"rate"};this._answers.push(e),this.dispatchEvent(new CustomEvent("questionCompleted",{bubbles:!1,detail:e})),this.questionIndex<this.questionList.length-1?this.questionIndex++:(this.isVisible=!1,setTimeout(()=>{this.questionIndex=0},500),this.dispatchEvent(new CustomEvent("completed",{bubbles:!1,detail:this._answers})),this._answers=[])}};r.styles=i.css`
+    `}_onCloseClick(){this.isVisible=!1,this.dispatchEvent(new CustomEvent("close",{bubbles:!1,detail:null}))}_onRateClick(t){this._onQuestionCompleted(t)}_onTextareaInput(t){const e=t.target;this._currentText=e.value}_onTextareaInputSubmit(){this._onQuestionCompleted(this._currentText),this._currentText=""}_onQuestionCompleted(t){const e={index:this.questionIndex,questionId:this.questionList[this.questionIndex].id,data:t,type:this.questionList[this.questionIndex].type??"rate"};this._answers.push(e),this.dispatchEvent(new CustomEvent("questionCompleted",{bubbles:!1,detail:e})),this.questionIndex<this.questionList.length-1?this.questionIndex++:(this.isVisible=!1,setTimeout(()=>{this.questionIndex=0},500),this.dispatchEvent(new CustomEvent("completed",{bubbles:!1,detail:this._answers})),this._answers=[])}};n.styles=i.css`
     @keyframes fadeIn {
       0% {
         opacity: 0;
@@ -154,10 +154,11 @@
     }
     .textarea-wrapper > .question-textarea:focus {
       border: 1px solid #0085FF;
+      outline: #E5F2FF solid 3px;
     }
-    /* .textarea-wrapper > .question-textarea:hover {
+    .textarea-wrapper > .question-textarea:hover {
       border: 1px solid #0085FF;
-    } */
+    }
     .textarea-wrapper > .question-textarea::placeholder {
       font-family: "PingFang SC";
       font-size: 14px;
@@ -165,8 +166,28 @@
       color: #667085;
     }
 
-    .textarea-wrapper > .textarea-submit-btn {
+    .textarea-wrapper > .submit-btn-wrapper {
+      margin-top: 12px;
+      display: flex;
+      flex-direction: row-reverse;
+    }
 
+    .submit-btn-wrapper > .textarea-submit-btn {
+      border-radius: 4px;
+      border: 1px solid #0085FF;
+      background: #0085FF;
+      padding: 3px 12px;
+      font-family: "Helvetica Neue";
+      font-size: 12px;
+      line-height: 18px;
+      font-weight: 400;
+      color: #FFF;
+      transition: all 0.2s ease;
+      cursor: pointer;
+    }
+    .submit-btn-wrapper > .textarea-submit-btn:hover {
+      border: 1px solid #349EFF;
+      background: #349EFF;
     }
 
     .content-wrapper {
@@ -313,4 +334,4 @@
         margin: 0 12px;
       }
     }
-  `,p([l.property({type:Array})],r.prototype,"questionList",2),p([l.property({type:Number})],r.prototype,"questionIndex",2),p([l.property({type:Boolean})],r.prototype,"isVisible",2),p([l.property()],r.prototype,"_styles",2),p([l.property({type:String})],r.prototype,"_currentText",2),r=p([l.customElement(m)],r);const v=r;class g{constructor(e=[]){this._listenerDestroyers=[];const s=document.createElement(m);this._element=s,e.length>0&&this.addQuestions(e),document.body.appendChild(this._element)}async launch(){await this._element.updateComplete,this._element.isVisible=!0}close(){this._element.isVisible=!1}destroy(){document.body.removeChild(this._element);for(const e of this._listenerDestroyers)e();this._element=null,this._listenerDestroyers=null}setQuestions(e){this._element.questionList=e}removeQuestionById(e){if(this._element.questionIndex===this._element.questionList.length-1&&this._element.questionList[this._element.questionIndex].id===e)throw new Error("无法删除当前正在填写的最后一个问题！");this._element.questionIndex=this._element.questionIndex-this._element.questionList.slice(0,this._element.questionIndex).filter(s=>s.id===e).length,this._element.questionList=this._element.questionList.filter(s=>s.id!==e)}removeQuestionByIds(e){if(this._element.questionList.slice(this._element.questionIndex).every(s=>e.includes(s.id)))throw new Error("无法直接删除所有待填写问题！");this._element.questionIndex=this._element.questionIndex-this._element.questionList.slice(0,this._element.questionIndex).filter(s=>!e.includes(s.id)).length,this._element.questionList=this._element.questionList.filter(s=>!e.includes(s.id))}addQuestion(e,s=-1){s===-1?this._element.questionList.push(e):this._element.questionList.splice(s+1,0,e),this._element.requestUpdate()}addQuestions(e,s=-1){s===-1?this._element.questionList.push(...e):this._element.questionList.splice(s,0,...e),this._element.requestUpdate()}on(e,s){const a=o=>{s(o.detail)};this._element.addEventListener(e,a),this._listenerDestroyers.push(()=>{this._element.removeEventListener(e,a)})}}n.UserSatisfactionElement=v,n.UserSatisfactionSurvey=g,Object.defineProperty(n,Symbol.toStringTag,{value:"Module"})});
+  `,p([l.property({type:Array})],n.prototype,"questionList",2),p([l.property({type:Number})],n.prototype,"questionIndex",2),p([l.property({type:Boolean})],n.prototype,"isVisible",2),p([l.property()],n.prototype,"_styles",2),p([l.property({type:String})],n.prototype,"_currentText",2),n=p([l.customElement(m)],n);const b=n;class v{constructor(e=[]){this._listenerDestroyers=[];const s=document.createElement(m);this._element=s,e.length>0&&this.addQuestions(e),document.body.appendChild(this._element)}async launch(){await this._element.updateComplete,this._element.isVisible=!0}close(){this._element.isVisible=!1}destroy(){document.body.removeChild(this._element);for(const e of this._listenerDestroyers)e();this._element=null,this._listenerDestroyers=null}setQuestions(e){this._element.questionList=e}removeQuestionById(e){if(this._element.questionIndex===this._element.questionList.length-1&&this._element.questionList[this._element.questionIndex].id===e)throw new Error("无法删除当前正在填写的最后一个问题！");this._element.questionIndex=this._element.questionIndex-this._element.questionList.slice(0,this._element.questionIndex).filter(s=>s.id===e).length,this._element.questionList=this._element.questionList.filter(s=>s.id!==e)}removeQuestionByIds(e){if(this._element.questionList.slice(this._element.questionIndex).every(s=>e.includes(s.id)))throw new Error("无法直接删除所有待填写问题！");this._element.questionIndex=this._element.questionIndex-this._element.questionList.slice(0,this._element.questionIndex).filter(s=>!e.includes(s.id)).length,this._element.questionList=this._element.questionList.filter(s=>!e.includes(s.id))}addQuestion(e,s=-1){s===-1?this._element.questionList.push(e):this._element.questionList.splice(s+1,0,e),this._element.requestUpdate()}addQuestions(e,s=-1){s===-1?this._element.questionList.push(...e):this._element.questionList.splice(s,0,...e),this._element.requestUpdate()}on(e,s){const a=o=>{s(o.detail)};this._element.addEventListener(e,a),this._listenerDestroyers.push(()=>{this._element.removeEventListener(e,a)})}}r.UserSatisfactionElement=b,r.UserSatisfactionSurvey=v,Object.defineProperty(r,Symbol.toStringTag,{value:"Module"})});
